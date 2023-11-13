@@ -1,6 +1,6 @@
 # Scanbot Document Scanning Use Cases Example App for MAUI
 
-This example app demonstrates the primary use cases and integration methods for the [Scanbot Document Scanner SDK for .NET MAUI](https://scanbot.io/developer/net-maui-barcode-scanner-sdk/).
+This example app demonstrates the primary use cases and integration methods for the [Scanbot Document Scanner SDK for .NET MAUI](https://scanbot.io/developer/net-maui-document-scanner-sdk/).
 
 ## What is the Scanbot Document Scanner SDK?
 
