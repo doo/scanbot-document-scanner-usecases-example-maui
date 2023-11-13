@@ -71,8 +71,10 @@ namespace UseCases.Document.MAUI.ViewModels
         {
             var saveFormat = await ActionHelpers.ChooseDocumentSaveFormatOption();
 
-            if (saveFormat == null)
+            if (saveFormat == null) 
+            {
                 return;
+            }
 
             var documentSources = _scannedPages
                 .Where(p => p.Document != null)

@@ -22,8 +22,8 @@ public class AppDelegate : MauiUIApplicationDelegate
 
             // You can enable encryption by uncommenting the following lines:
             // Note: all the images and files exported through the SDK will
-            // not be openable from external application, since they will be
-            // encrypted
+            // not be openable from an external application, since they will be
+            // encrypted.
 
             // Encryption = new SBSDKEncryption
             // {
