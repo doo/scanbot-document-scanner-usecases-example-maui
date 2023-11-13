@@ -1,5 +1,4 @@
-﻿using System;
-namespace UseCases.Document.MAUI.Models
+﻿namespace UseCases.Document.MAUI.Models
 {
     public struct UseCaseOption
     {

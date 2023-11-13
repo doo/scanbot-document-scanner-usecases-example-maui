@@ -3,13 +3,13 @@ using System.Runtime.CompilerServices;
 
 namespace UseCases.Document.MAUI.ViewModels
 {
-	public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         public BaseViewModel()
-		{
-		}
+        {
+        }
 
         public virtual void BindingContextChanged() { }
 

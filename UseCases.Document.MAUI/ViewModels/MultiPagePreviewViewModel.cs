@@ -6,7 +6,7 @@ using UseCases.Document.MAUI.Utils;
 
 namespace UseCases.Document.MAUI.ViewModels
 {
-	public class MultiPagePreviewViewModel : BasePagePreviewViewModel
+    public class MultiPagePreviewViewModel : BasePagePreviewViewModel
     {
         private IEnumerable<IScannedPageService> _scannedPages;
 
@@ -53,7 +53,7 @@ namespace UseCases.Document.MAUI.ViewModels
         {
             var filterOption = await ActionHelpers.ChooseDocumentFilterOption();
 
-            if(filterOption == null)
+            if (filterOption == null)
             {
                 return;
             }

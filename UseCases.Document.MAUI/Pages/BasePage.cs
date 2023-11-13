@@ -1,5 +1,4 @@
-﻿using System;
-using UseCases.Document.MAUI.ViewModels;
+﻿using UseCases.Document.MAUI.ViewModels;
 
 namespace UseCases.Document.MAUI.Pages
 {

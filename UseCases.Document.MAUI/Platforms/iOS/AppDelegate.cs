@@ -1,7 +1,6 @@
 ﻿using DocumentSDK.MAUI;
 using DocumentSDK.MAUI.Constants;
 using DocumentSDK.MAUI.iOS;
-using DocumentSDK.MAUI.Models;
 using Foundation;
 
 namespace UseCases.Document.MAUI;

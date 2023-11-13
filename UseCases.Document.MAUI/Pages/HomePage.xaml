@@ -5,48 +5,46 @@
              xmlns:models="clr-namespace:UseCases.Document.MAUI.Models"
              x:Class="UseCases.Document.MAUI.Pages.HomePage"
              Title="Scanbot Document Scanner SDK">
-   
+
     <pages:BasePage.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="useCaseItemTemplate"
-                          x:DataType="models:UseCaseOption">
-                      <StackLayout HeightRequest="45"  Padding="10,0">
-                          <VisualStateManager.VisualStateGroups>
-					        <VisualStateGroup Name="CommonStates">
-						        <VisualState Name="Normal">
-                                    <VisualState.Setters>
-								        <Setter Property="BackgroundColor" Value="Transparent" />
-							        </VisualState.Setters>
-                                </VisualState>
-						        <VisualState Name="Selected">
-							        <VisualState.Setters>
-								        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
-							        </VisualState.Setters>
-						        </VisualState>
-					        </VisualStateGroup>
-				        </VisualStateManager.VisualStateGroups>
-                                <Label Text="{Binding Title}"
-                                   VerticalOptions="CenterAndExpand"
-                                   HorizontalOptions="StartAndExpand"
-                                   FontSize="Default"/>
-                            </StackLayout>
+            <DataTemplate x:Key="useCaseItemTemplate" x:DataType="models:UseCaseOption">
+                <StackLayout HeightRequest="45"  Padding="10,0">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Label Text="{Binding Title}"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="StartAndExpand"
+                        FontSize="Default"/>
+                </StackLayout>
             </DataTemplate>
 
             <DataTemplate x:Key="headerItemTemplate">
-                      <StackLayout HeightRequest="45"
-                                   Padding="10,0">
-                                <Label Text="{Binding }"
-                                   VerticalOptions="CenterAndExpand"
-                                   HorizontalOptions="StartAndExpand"
-                                   FontSize="Large"/>
-                            </StackLayout>
+                <StackLayout HeightRequest="45" Padding="10,0">
+                    <Label Text="{Binding }"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="StartAndExpand"
+                        FontSize="Large"/>
+                </StackLayout>
             </DataTemplate>
         </ResourceDictionary>
     </pages:BasePage.Resources>
 
     <ScrollView>
         <VerticalStackLayout>
-             <CollectionView x:Name="DocumentUseCaseList"
+            <CollectionView x:Name="DocumentUseCaseList"
                        Header="Document Scanning Use Cases"
                        HeaderTemplate="{StaticResource headerItemTemplate}"
                        ItemTemplate="{StaticResource useCaseItemTemplate}"

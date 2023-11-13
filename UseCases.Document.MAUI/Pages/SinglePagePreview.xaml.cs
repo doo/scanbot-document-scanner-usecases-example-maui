@@ -6,8 +6,8 @@ namespace UseCases.Document.MAUI.Pages;
 public partial class SinglePagePreview : BasePage
 {
     public SinglePagePreview(IScannedPageService scannedPage)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         ViewModel = new SinglePagePreviewViewModel(scannedPage);
         BindingContext = ViewModel;

@@ -10,7 +10,7 @@ namespace UseCases.Document.MAUI.ViewModels
 {
     public class SinglePagePreviewViewModel : BasePagePreviewViewModel
     {
-		private IScannedPageService _scannedPage;
+        private IScannedPageService _scannedPage;
 
         private ImageSource _scannedImageSource;
         public ImageSource ScannedImageSource
@@ -30,8 +30,8 @@ namespace UseCases.Document.MAUI.ViewModels
         public ICommand DetectBlurCommand { get; set; }
 
         public SinglePagePreviewViewModel(IScannedPageService scannedPage)
-		{
-			_scannedPage = scannedPage;
+        {
+            _scannedPage = scannedPage;
 
             FilterCommand = new Command(Filter);
             ExportCommand = new Command(Export);

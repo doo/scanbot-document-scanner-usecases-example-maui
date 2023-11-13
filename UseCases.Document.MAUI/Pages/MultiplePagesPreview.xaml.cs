@@ -6,8 +6,8 @@ namespace UseCases.Document.MAUI.Pages;
 public partial class MultiplePagesPreview : BasePage
 {
     public MultiplePagesPreview(IScannedPageService[] scannedPages)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         ViewModel = new MultiPagePreviewViewModel(scannedPages);
         BindingContext = ViewModel;

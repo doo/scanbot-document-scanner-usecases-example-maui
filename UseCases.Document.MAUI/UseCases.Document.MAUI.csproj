@@ -1,26 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<!-- ===================== Common Project Configs/Architecture =====================  -->
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-ios;net7.0-android</TargetFrameworks>
-        <OutputType>Exe</OutputType>
-        <UseMaui>true</UseMaui>
-        <SingleProject>true</SingleProject>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <!-- Display name -->
-        <ApplicationTitle>MAUI Document Use Cases</ApplicationTitle>
-        <!-- App Identifier -->
-        <ApplicationId>io.scanbot.example.sdk.maui</ApplicationId>
-        <ApplicationIdGuid>336b82d4-a60f-400b-a16b-448a30d17c6b</ApplicationIdGuid>
-        <AssemblyName>UseCases.MAUI</AssemblyName>
-        <!-- Versions -->
-        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-        <ApplicationVersion>1.0</ApplicationVersion>
+    <TargetFrameworks>net7.0-ios;net7.0-android</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Display name -->
+    <ApplicationTitle>MAUI Document Use Cases</ApplicationTitle>
+    <!-- App Identifier -->
+    <ApplicationId>io.scanbot.example.sdk.maui</ApplicationId>
+    <ApplicationIdGuid>336b82d4-a60f-400b-a16b-448a30d17c6b</ApplicationIdGuid>
+    <AssemblyName>UseCases.MAUI</AssemblyName>
+    <!-- Versions -->
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1.0</ApplicationVersion>
 
-        <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
 
-		<!-- Supported Platforms -->
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">13.0</SupportedOSPlatformVersion>
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24</SupportedOSPlatformVersion>
+    <!-- Supported Platforms -->
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">13.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24</SupportedOSPlatformVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)|$(Platform)'=='net7.0-ios|ARM64'">
         <MtouchLink>SdkOnly</MtouchLink>
@@ -32,6 +32,7 @@
         <MtouchLink>SdkOnly</MtouchLink>
         <CreatePackage>false</CreatePackage>
     </PropertyGroup>
+
     <!-- ===================== Application Resources =====================  -->
     <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
       <JavaMaximumHeapSize>4G</JavaMaximumHeapSize>
@@ -41,21 +42,21 @@
       <CodesignKey>Apple Development: yurii@scanbot.io (JRS98XMLGY)</CodesignKey>
     </PropertyGroup>
 	<ItemGroup>
-		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+    <!-- App Icon -->
+	<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
-		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+	<!-- Splash Screen -->
+	<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
-		<!-- Images -->
-		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+	<!-- Images -->
+	<MauiImage Include="Resources\Images\*" />
+	<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
-		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*" />
+	<!-- Custom Fonts -->
+	<MauiFont Include="Resources\Fonts\*" />
 
-		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+	<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<!-- ===================== IOS Project References =====================  -->
@@ -66,7 +67,7 @@
         </PackageReference>
         <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     </ItemGroup>
-    
+
     <!-- ===================== Common Project References =====================  -->
     <ItemGroup>
       <PackageReference Include="ScanbotSDK.MAUI" Version="2.3.1" />

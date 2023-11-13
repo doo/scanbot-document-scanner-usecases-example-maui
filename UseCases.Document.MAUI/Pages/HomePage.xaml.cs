@@ -1,5 +1,4 @@
-﻿using System.Text;
-using BarcodeSDK.MAUI.Constants;
+﻿using BarcodeSDK.MAUI.Constants;
 using DocumentSDK.MAUI;
 using DocumentSDK.MAUI.Models;
 using UseCases.Document.MAUI.Models;
