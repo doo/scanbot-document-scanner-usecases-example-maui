@@ -2,7 +2,7 @@
 using BarcodeSDK.MAUI.Constants;
 using DocumentSDK.MAUI;
 using DocumentSDK.MAUI.Models;
-using UseCases.Document.MAUI.Utils;
+using UseCases.Document.MAUI.Models;
 
 namespace UseCases.Document.MAUI.Pages;
 
@@ -17,12 +17,12 @@ public partial class HomePage : BasePage
         InitializeComponent();
 
         documentUseCases = new List<UseCaseOption>
-            {
-                    new UseCaseOption("Single-Page Scanning", RunSinglePageScanner),
-                    new UseCaseOption("Multiple-Page Scanning", RunMultiPageScanner),
-                    new UseCaseOption("Single-Page Scanning with Finder", RunFinderPageScanner),
-                    new UseCaseOption("Pick from Gallery", ImportImagesFromLibrary),
-            };
+        {
+            new UseCaseOption("Single-Page Scanning", RunSinglePageScanner),
+            new UseCaseOption("Multiple-Page Scanning", RunMultiPageScanner),
+            new UseCaseOption("Single-Page Scanning with Finder", RunFinderPageScanner),
+            new UseCaseOption("Pick from Gallery", ImportImagesFromLibrary),
+        };
 
         DocumentUseCaseList.ItemsSource = documentUseCases;
 

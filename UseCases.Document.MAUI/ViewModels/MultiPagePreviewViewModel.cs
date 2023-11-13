@@ -2,6 +2,7 @@
 using DocumentSDK.MAUI.Constants;
 using DocumentSDK.MAUI.Models;
 using DocumentSDK.MAUI.Services;
+using UseCases.Document.MAUI.Utils;
 
 namespace UseCases.Document.MAUI.ViewModels
 {
@@ -50,63 +51,50 @@ namespace UseCases.Document.MAUI.ViewModels
 
         private async void Filter()
         {
-            var buttons = Enum.GetNames(typeof(ImageFilter));
-            var action = await App.Current.MainPage.DisplayActionSheet("Filter", "Cancel", null, buttons);
+            var filterOption = await ActionHelpers.ChooseDocumentFilterOption();
 
-            if (Enum.TryParse<ImageFilter>(action, out var filter))
+            if(filterOption == null)
             {
-                ScannedImageSources.Clear();
+                return;
+            }
 
-                foreach (var page in _scannedPages)
-                {
-                    await page.SetFilterAsync(filter);
-                    ScannedImageSources.Add(await page.DecryptedDocumentPreview());
-                }
+            ScannedImageSources.Clear();
+
+            foreach (var page in _scannedPages)
+            {
+                await page.SetFilterAsync(filterOption.Value);
+                ScannedImageSources.Add(await page.DecryptedDocumentPreview());
             }
         }
 
         private async void Export()
         {
-            var parameters = new string[] { "Save PDF", "Save TIFF" };
+            var saveFormat = await ActionHelpers.ChooseDocumentSaveFormatOption();
 
-            string action = await App.Current.MainPage.DisplayActionSheet("Save Image as", "Cancel", null, parameters);
-
-            if (action == null || action.Equals("Cancel"))
-            {
+            if (saveFormat == null)
                 return;
-            }
 
-            Uri exportedFileUri;
             var documentSources = _scannedPages
                 .Where(p => p.Document != null)
                 .Select(p => p.Document)
                 .ToList();
 
-            if (action.Equals(parameters[0]))
+            if (saveFormat == Models.SaveFormatOption.PDF)
             {
-                exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreatePdfAsync(
+                var exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreatePdfAsync(
                     documentSources,
                     PDFPageSize.FixedA4);
 
-                await ShareFile(exportedFileUri.AbsolutePath);
+                await ActionHelpers.ShareFile(exportedFileUri.AbsolutePath);
             }
-            else if (action.Equals(parameters[1]))
+            else if (saveFormat == Models.SaveFormatOption.TIFF)
             {
-                exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.WriteTiffAsync(
+                var exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.WriteTiffAsync(
                     documentSources,
                     new TiffOptions { OneBitEncoded = true, Dpi = 300, Compression = TiffCompressionOptions.CompressionCcittT6 }
                 );
 
-                await ShareFile(exportedFileUri.AbsolutePath);
-            }
-
-            async Task ShareFile(string filePath)
-            {
-                await Share.Default.RequestAsync(new ShareFileRequest
-                {
-                    Title = "Share file",
-                    File = new ShareFile(filePath)
-                });
+                await ActionHelpers.ShareFile(exportedFileUri.AbsolutePath);
             }
         }
     }

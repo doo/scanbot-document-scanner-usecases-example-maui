@@ -1,10 +1,10 @@
-﻿using System.Diagnostics;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using BarcodeSDK.MAUI.Constants;
 using DocumentSDK.MAUI;
 using DocumentSDK.MAUI.Constants;
 using DocumentSDK.MAUI.Models;
 using DocumentSDK.MAUI.Services;
+using UseCases.Document.MAUI.Utils;
 
 namespace UseCases.Document.MAUI.ViewModels
 {
@@ -48,14 +48,15 @@ namespace UseCases.Document.MAUI.ViewModels
 
         private async void Filter()
         {
-            var buttons = Enum.GetNames(typeof(ImageFilter));
-            var action = await App.Current.MainPage.DisplayActionSheet("Filter", "Cancel", null, buttons);
+            var filterOption = await ActionHelpers.ChooseDocumentFilterOption();
 
-            if (Enum.TryParse<ImageFilter>(action, out var filter))
+            if (filterOption == null)
             {
-                await _scannedPage.SetFilterAsync(filter);
-                ScannedImageSource = await _scannedPage.DecryptedDocument();
+                return;
             }
+
+            await _scannedPage.SetFilterAsync(filterOption.Value);
+            ScannedImageSource = await _scannedPage.DecryptedDocument();
         }
 
         private async void ManualCrop()
@@ -72,47 +73,33 @@ namespace UseCases.Document.MAUI.ViewModels
         private async void DetectBlur()
         {
             var blur = await DocumentSDK.MAUI.ScanbotSDK.SDKService.EstimateBlurriness(await _scannedPage.DecryptedDocument());
+
             await App.Current.MainPage.DisplayAlert("Detect Blur", $"Estimated blurriness for detected document: {blur}", "Dismiss");
         }
 
         private async void Export()
         {
-            var parameters = new string[] { "Save PDF", "Save TIFF" };
+            var saveFormat = await ActionHelpers.ChooseDocumentSaveFormatOption();
 
-            string action = await App.Current.MainPage.DisplayActionSheet("Save Image as", "Cancel", null, parameters);
-
-            if (action == null || action.Equals("Cancel"))
-            {
+            if (saveFormat == null)
                 return;
-            }
-                               
-            Uri exportedFileUri;
 
-            if (action.Equals(parameters[0]))
+            if (saveFormat == Models.SaveFormatOption.PDF)
             {
-                exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreatePdfAsync(
+                var exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreatePdfAsync(
                     new[] { _scannedPage.Document },
                     PDFPageSize.FixedA4);
 
-                await ShareFile(exportedFileUri.AbsolutePath);
+                await ActionHelpers.ShareFile(exportedFileUri.AbsolutePath);
             }
-            else if (action.Equals(parameters[1]))
+            else if (saveFormat == Models.SaveFormatOption.TIFF)
             {
-                exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.WriteTiffAsync(
+                var exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.WriteTiffAsync(
                     new[] { _scannedPage.Document },
                     new TiffOptions { OneBitEncoded = true, Dpi = 300, Compression = TiffCompressionOptions.CompressionCcittT6 }
                 );
 
-                await ShareFile(exportedFileUri.AbsolutePath);
-            }
-
-            async Task ShareFile(string filePath)
-            {
-                await Share.Default.RequestAsync(new ShareFileRequest
-                {
-                    Title = "Share file",
-                    File = new ShareFile(filePath)
-                });
+                await ActionHelpers.ShareFile(exportedFileUri.AbsolutePath);
             }
         }
 
