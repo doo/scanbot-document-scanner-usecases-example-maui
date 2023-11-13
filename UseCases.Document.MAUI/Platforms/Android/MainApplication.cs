@@ -2,7 +2,6 @@
 using Android.Runtime;
 using DocumentSDK.MAUI;
 using DocumentSDK.MAUI.Droid;
-using DocumentSDK.MAUI.Droid.Services;
 
 namespace UseCases.Document.MAUI;
 
@@ -25,7 +24,18 @@ public class MainApplication : MauiApplication
             StorageBaseDirectory = GetDemoStorageBaseDirectory(),
             AllowGpuAcceleration = false,
             AllowXnnpackAcceleration = false,
-            EnableNativeLogging = true
+            EnableNativeLogging = true,
+
+            // You can enable encryption by uncommenting the following lines:
+            // Note: all the images and files exported through the SDK will
+            // not be openable from external application, since they will be
+            // encrypted
+
+            //Encryption = new SBSDKEncryption
+            //{
+            //    Password = "SomeSecretPa$$w0rdForFileEncryption",
+            //    Mode = EncryptionMode.AES256
+            //}
         };
 
         SBSDKInitializer.Initialize(this, App.LICENSE_KEY, configuration);
