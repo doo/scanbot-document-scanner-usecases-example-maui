@@ -2,13 +2,13 @@
 
 public partial class App : Application
 {
-	public const string LICENSE_KEY = null;
+    public const string LICENSE_KEY = null;
 
     public App()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
-		MainPage = new NavigationPage(new Pages.HomePage());
-	}
+        MainPage = new NavigationPage(new Pages.HomePage());
+    }
 }
 

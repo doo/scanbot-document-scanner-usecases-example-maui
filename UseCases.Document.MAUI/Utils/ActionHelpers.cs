@@ -3,8 +3,8 @@ using UseCases.Document.MAUI.Models;
 
 namespace UseCases.Document.MAUI.Utils
 {
-	public static class ActionHelpers
-	{
+    public static class ActionHelpers
+    {
         public static async Task<SaveFormatOption?> ChooseDocumentSaveFormatOption()
         {
             var parameters = Enum.GetNames(typeof(SaveFormatOption));
