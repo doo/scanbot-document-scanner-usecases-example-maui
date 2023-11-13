@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns:pages="clr-namespace:UseCases.Document.MAUI.Pages"
+                 xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 x:Class="UseCases.Document.MAUI.Pages.MultiplePagesPreview"
+                 Title="MultiplePagesPreview">
+    <StackLayout Padding="0, 15, 0, 0" VerticalOptions="Fill">
+        <CollectionView x:Name="ScannedPagesCollectionView"
+                        VerticalOptions="FillAndExpand"
+                        ItemsSource="{Binding ScannedImageSources}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="15" VerticalItemSpacing="15" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Image Margin="10"
+                           HeightRequest="180"
+                           Aspect="AspectFill"
+                           Source="{Binding .}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <StackLayout x:Name="BottomMenu"
+                     HeightRequest="80"
+                     VerticalOptions="End"
+                     Orientation="Horizontal"
+                     BackgroundColor="Black">
+            <Button x:Name="FilterButton"
+                    Text="Filter"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="Transparent"
+                    TextColor="White"
+                    Command="{Binding FilterCommand}" />
+            <Button x:Name="ExportButton"
+                    Text="Export"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="Transparent"
+                    TextColor="White"
+                    Command="{Binding ExportCommand}" />
+        </StackLayout>
+    </StackLayout>
+</pages:BasePage>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage  xmlns:pages="clr-namespace:UseCases.Document.MAUI.Pages"
+                 xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UseCases.Document.MAUI.Pages.SinglePagePreview"
+             Title="SinglePagePreview">
+    <StackLayout
+        VerticalOptions="FillAndExpand">
+        <Image
+            x:Name="ScannedImage"
+            Margin="15"
+            Aspect="AspectFit"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Source="{Binding ScannedImageSource}"/>
+
+        <StackLayout
+            x:Name="BottomMenu"
+            HeightRequest="80"
+            VerticalOptions="End"
+            Orientation="Horizontal"
+            BackgroundColor="Black">
+            <Button
+                x:Name="FilterButton"
+                Text="Filter"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="Transparent"
+                TextColor="White"
+                Command="{Binding FilterCommand}"/>
+            <Button
+                x:Name="ManualCropButton"
+                Text="Manual Crop"
+                BackgroundColor="Transparent"
+                TextColor="White"
+                Command="{Binding ManualCropCommand}"/>
+            <Button
+                x:Name="DetectBlurButton"
+                Text="Detect Blur"
+                BackgroundColor="Transparent"
+                TextColor="White"
+                Command="{Binding DetectBlurCommand}"/>
+            <Button
+                x:Name="ExportButton"
+                Text="Export"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="Transparent"
+                TextColor="White"
+                Command="{Binding ExportCommand}"/>
+        </StackLayout>
+    </StackLayout>
+</pages:BasePage>

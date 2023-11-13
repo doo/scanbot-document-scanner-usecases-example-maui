@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:UseCases.Document.MAUI.Pages"
+             xmlns:utils="clr-namespace:UseCases.Document.MAUI.Utils"
+             x:Class="UseCases.Document.MAUI.Pages.HomePage"
+             Title="Scanbot Document Scanner SDK">
+   
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="useCaseItemTemplate"
+                          x:DataType="utils:UseCaseOption">
+                      <StackLayout HeightRequest="45"  Padding="10,0">
+                          <VisualStateManager.VisualStateGroups>
+					        <VisualStateGroup Name="CommonStates">
+						        <VisualState Name="Normal">
+                                    <VisualState.Setters>
+								        <Setter Property="BackgroundColor" Value="Transparent" />
+							        </VisualState.Setters>
+                                </VisualState>
+						        <VisualState Name="Selected">
+							        <VisualState.Setters>
+								        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
+							        </VisualState.Setters>
+						        </VisualState>
+					        </VisualStateGroup>
+				        </VisualStateManager.VisualStateGroups>
+                                <Label Text="{Binding Title}"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="StartAndExpand"
+                                   FontSize="Default"/>
+                            </StackLayout>
+            </DataTemplate>
+
+            <DataTemplate x:Key="headerItemTemplate">
+                      <StackLayout HeightRequest="45"
+                                   Padding="10,0">
+                                <Label Text="{Binding }"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="StartAndExpand"
+                                   FontSize="Large"/>
+                            </StackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout>
+             <CollectionView x:Name="DocumentUseCaseList"
+                       Header="Document Scanning Use Cases"
+                       HeaderTemplate="{StaticResource headerItemTemplate}"
+                       ItemTemplate="{StaticResource useCaseItemTemplate}"
+                       SelectionMode="Single"
+                       SelectionChanged="UseCaseSelected">
+            </CollectionView>
+
+            <pages:LearnMore />
+        </VerticalStackLayout>
+    </ScrollView>
+</pages:BasePage>
