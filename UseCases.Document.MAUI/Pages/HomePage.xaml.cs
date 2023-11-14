@@ -18,6 +18,7 @@ public partial class HomePage : BasePage
         documentUseCases = new List<UseCaseOption>
         {
             new UseCaseOption("Single-Page Scanning", RunSinglePageScanner),
+            new UseCaseOption("Single-Page Auto Scanning", RunSinglePageAutoScanner),
             new UseCaseOption("Multiple-Page Scanning", RunMultiPageScanner),
             new UseCaseOption("Single-Page Scanning with Finder", RunFinderPageScanner),
             new UseCaseOption("Pick from Gallery", ImportImagesFromLibrary),
@@ -36,6 +37,24 @@ public partial class HomePage : BasePage
             MultiPageEnabled = false,
             MultiPageButtonHidden = true,
             IgnoreBadAspectRatio = true,
+        };
+
+        var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
+
+        if (result.Status == OperationResult.Ok &&
+            result?.Pages != null)
+        {
+            await WaitThenNavigate(new SinglePagePreview(result.Pages.FirstOrDefault()));
+        }
+    }
+
+    private async Task RunSinglePageAutoScanner()
+    {
+        var config = new DocumentScannerConfiguration()
+        {
+            AutoSnappingEnabled = true,
+            AutoSnappingButtonHidden = false,
+            AutoSnappingButtonTitle = "Auto-Snap"
         };
 
         var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
