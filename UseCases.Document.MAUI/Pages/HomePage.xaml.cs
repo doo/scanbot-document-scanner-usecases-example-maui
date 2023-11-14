@@ -40,8 +40,7 @@ public partial class HomePage : BasePage
 
         var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
 
-        if (result.Status == OperationResult.Ok &&
-            result?.Pages != null)
+        if (result?.Status == OperationResult.Ok)
         {
             await WaitThenNavigate(new SinglePagePreview(result.Pages.FirstOrDefault()));
         }
@@ -58,8 +57,7 @@ public partial class HomePage : BasePage
 
         var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
 
-        if (result.Status == OperationResult.Ok &&
-            result?.Pages != null)
+        if (result?.Status == OperationResult.Ok)
         {
             await WaitThenNavigate(new SinglePagePreview(result.Pages.FirstOrDefault()));
         }
@@ -82,7 +80,7 @@ public partial class HomePage : BasePage
 
         var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
 
-        if (result?.Pages != null)
+        if (result?.Status == OperationResult.Ok)
         {
             await WaitThenNavigate(new SinglePagePreview(result.Pages.FirstOrDefault()));
         }
@@ -100,8 +98,7 @@ public partial class HomePage : BasePage
 
         var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
 
-        if (result.Status == OperationResult.Ok &&
-            result?.Pages != null)
+        if (result?.Status == OperationResult.Ok)
         {
             await WaitThenNavigate(new MultiplePagesPreview(result.Pages));
         }
@@ -118,7 +115,7 @@ public partial class HomePage : BasePage
 
         var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchFinderDocumentScannerAsync(config);
 
-        if (result?.Pages != null)
+        if (result?.Status == OperationResult.Ok)
         {
             await WaitThenNavigate(new SinglePagePreview(result.Pages.FirstOrDefault()));
         }
@@ -127,6 +124,9 @@ public partial class HomePage : BasePage
     private async Task ImportImagesFromLibrary()
     {
         ImageSource pickedImageSource = await DocumentSDK.MAUI.ScanbotSDK.PickerService.PickImageAsync();
+
+        if (pickedImageSource == null)
+            return;
 
         var scannedPage = await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreateScannedPageAsync(pickedImageSource);
 
