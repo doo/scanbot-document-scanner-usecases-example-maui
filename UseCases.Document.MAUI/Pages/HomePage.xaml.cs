@@ -18,7 +18,6 @@ public partial class HomePage : BasePage
         documentUseCases = new List<UseCaseOption>
         {
             new UseCaseOption("Single-Page Scanning", RunSinglePageScanner),
-            new UseCaseOption("Single-Page Auto Scanning", RunSinglePageAutoScanner),
             new UseCaseOption("Multiple-Page Scanning", RunMultiPageScanner),
             new UseCaseOption("Single-Page Scanning with Finder", RunFinderPageScanner),
             new UseCaseOption("Pick from Gallery", ImportImagesFromLibrary),
@@ -61,6 +60,29 @@ public partial class HomePage : BasePage
 
         if (result.Status == OperationResult.Ok &&
             result?.Pages != null)
+        {
+            await WaitThenNavigate(new SinglePagePreview(result.Pages.FirstOrDefault()));
+        }
+    }
+
+    private async Task RunSinglePageScannerWithGuidance()
+    {
+        var config = new DocumentScannerConfiguration()
+        {
+           MultiPageEnabled = false,
+           MultiPageButtonHidden = true,
+           TextHintBadAngles = "Hold your phone parallel to the document",
+           TextHintOK = "Hold your phone, steady, trying to scan",
+           TextHintBadAspectRatio = "The document is not in the correct format",
+           TextHintTooDark = "Its too dark, please add more light",
+           TextHintTooSmall = "Document too small, please move closer",
+           TextHintTooNoisy = "Image too noisy, please move to a better lit area",
+           TextHintNothingDetected = "No document detected, please try again",
+        };
+
+        var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
+
+        if (result?.Pages != null)
         {
             await WaitThenNavigate(new SinglePagePreview(result.Pages.FirstOrDefault()));
         }
