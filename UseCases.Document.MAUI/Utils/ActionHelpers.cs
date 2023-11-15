@@ -34,7 +34,7 @@ namespace UseCases.Document.MAUI.Utils
 
         public static async Task ShareFile(string filePath)
         {
-            await Share.Default.RequestAsync(new ShareFileRequest
+            await Share.RequestAsync(new ShareFileRequest
             {
                 Title = "Share file",
                 File = new ShareFile(filePath)

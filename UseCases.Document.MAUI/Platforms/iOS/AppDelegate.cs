@@ -15,9 +15,7 @@ public class AppDelegate : MauiUIApplicationDelegate
         SBSDKInitializer.Initialize(UIKit.UIApplication.SharedApplication, App.LICENSE_KEY, new SBSDKConfiguration
         {
             EnableLogging = true,
-            StorageBaseDirectory = GetDemoStorageBaseDirectory(),
             StorageImageFormat = CameraImageFormat.Jpg,
-            StorageImageQuality = 50,
             DetectorType = DocumentDetectorType.MLBased,
 
             // You can enable encryption by uncommenting the following lines:
@@ -33,15 +31,6 @@ public class AppDelegate : MauiUIApplicationDelegate
         });
 
         return MauiProgram.CreateMauiApp();
-    }
-
-    string GetDemoStorageBaseDirectory()
-    {
-        var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        var folder = Path.Combine(documents, "forms-dev-app-storage");
-        Directory.CreateDirectory(folder);
-
-        return folder;
     }
 }
 
