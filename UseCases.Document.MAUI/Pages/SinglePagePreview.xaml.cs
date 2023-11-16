@@ -1,4 +1,5 @@
 ﻿using DocumentSDK.MAUI.Services;
+using UseCases.Document.MAUI.Services;
 using UseCases.Document.MAUI.ViewModels;
 
 namespace UseCases.Document.MAUI.Pages;
@@ -9,7 +10,7 @@ public partial class SinglePagePreview : BasePage
     {
         InitializeComponent();
 
-        ViewModel = new SinglePagePreviewViewModel(scannedPage);
+        ViewModel = new SinglePagePreviewViewModel(scannedPage, new NativeFileFormatService());
         BindingContext = ViewModel;
     }
 

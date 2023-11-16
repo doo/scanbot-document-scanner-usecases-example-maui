@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using DocumentSDK.MAUI.Constants;
 using DocumentSDK.MAUI.Models;
 using DocumentSDK.MAUI.Services;
@@ -51,6 +52,9 @@ namespace UseCases.Document.MAUI.ViewModels
 
         private async void Filter()
         {
+            if (!await ActionHelpers.IsLicenseValid())
+                return;
+
             var filterOption = await ActionHelpers.ChooseDocumentFilterOption();
 
             if (filterOption == null)
@@ -69,6 +73,9 @@ namespace UseCases.Document.MAUI.ViewModels
 
         private async void Export()
         {
+            if (!await ActionHelpers.IsLicenseValid())
+                return;
+
             var saveFormat = await ActionHelpers.ChooseDocumentSaveFormatOption();
 
             if (saveFormat == null) 

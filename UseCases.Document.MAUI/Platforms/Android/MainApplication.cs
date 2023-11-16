@@ -23,6 +23,7 @@ public class MainApplication : MauiApplication
             AllowGpuAcceleration = false,
             AllowXnnpackAcceleration = false,
             EnableNativeLogging = true,
+            StorageImageFormat = DocumentSDK.MAUI.Constants.CameraImageFormat.Jpg,
 
             // You can enable encryption by uncommenting the following lines:
             // Note: all the images and files exported through the SDK will
