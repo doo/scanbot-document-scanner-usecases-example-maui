@@ -8,13 +8,8 @@ namespace UseCases.Document.MAUI.UseCases
     {
         public override async Task<Uri> GenerateFilesForDocument(IEnumerable<IScannedPageService> scannedPages)
         {
-            var documentSources = scannedPages
-                .Where(p => p.Document != null)
-                .Select(p => p.Document)
-                .ToList();
-
             return await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreatePdfAsync(
-                           documentSources,
+                           ExtractImageSourcesFromScannedPages(scannedPages),
                            PDFPageSize.FixedA4);
         }
     }
