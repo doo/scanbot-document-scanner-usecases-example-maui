@@ -18,7 +18,7 @@ namespace UseCases.Document.MAUI.Services
         public async Task<Uri> ConvertFromFileImageSourceAsync(SaveFormatOption formatOption, FileImageSource fileImage)
         {
             var saveFormatOptionString = formatOption.ToString().ToLower();
-            var generatedFilePath = await GetGeneratedFilePathAsync(fileImage.File, saveFormatOptionString);
+            var generatedFilePath = GetGeneratedFilePathAsync(fileImage.File, saveFormatOptionString);
 
             if (!IsFileSameFormat(fileImage.File, saveFormatOptionString))
             {
@@ -28,7 +28,7 @@ namespace UseCases.Document.MAUI.Services
             return new Uri(generatedFilePath);
         }
 
-        private async Task<string> GetGeneratedFilePathAsync(string sourceFilePath, string formatOption)
+        private string GetGeneratedFilePathAsync(string sourceFilePath, string formatOption)
         {
             if (IsFileSameFormat(sourceFilePath, formatOption))
             {
@@ -41,6 +41,12 @@ namespace UseCases.Document.MAUI.Services
             }
         }
 
+        private bool IsFileSameFormat(string sourceFilePath, string formatOption)
+        {
+            var initialFileExtension = Path.GetExtension(sourceFilePath);
+            return initialFileExtension.Contains(formatOption);
+        }
+
         private string GetLocalPath(string sourceFilePath)
         {
 #if __IOS__
@@ -48,12 +54,6 @@ namespace UseCases.Document.MAUI.Services
 #else
             return sourceFilePath;
 #endif
-        }
-
-        private bool IsFileSameFormat(string sourceFilePath, string formatOption)
-        {
-            var initialFileExtension = Path.GetExtension(sourceFilePath);
-            return initialFileExtension.Contains(formatOption);
         }
 
         private async Task CopyFileAsync(string sourceFilePath, string destinationFilePath)
