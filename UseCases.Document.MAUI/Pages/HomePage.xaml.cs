@@ -143,6 +143,8 @@ public partial class HomePage : BasePage
 
         if (scannedPage != null)
         {
+            await scannedPage.DetectDocumentAsync();
+
             await WaitThenNavigate(new SinglePagePreview(scannedPage));
         }
     }

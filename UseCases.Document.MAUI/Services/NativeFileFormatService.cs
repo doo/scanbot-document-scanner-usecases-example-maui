@@ -1,5 +1,4 @@
 using System;
-using Foundation;
 using UseCases.Document.MAUI.Models;
 
 #if __IOS__
