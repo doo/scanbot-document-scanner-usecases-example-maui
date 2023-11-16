@@ -2,18 +2,14 @@
 using System.Windows.Input;
 using BarcodeSDK.MAUI.Constants;
 using DocumentSDK.MAUI;
-using DocumentSDK.MAUI.Constants;
-using DocumentSDK.MAUI.Models;
 using DocumentSDK.MAUI.Services;
-using UseCases.Document.MAUI.Services;
+using UseCases.Document.MAUI.UseCases;
 using UseCases.Document.MAUI.Utils;
 
 namespace UseCases.Document.MAUI.ViewModels
 {
     public class SinglePagePreviewViewModel : BasePagePreviewViewModel
     {
-        private readonly IFileFormatService _fileFormatService;
-
         private IScannedPageService _scannedPage;
 
         private ImageSource _scannedImageSource;
@@ -33,10 +29,9 @@ namespace UseCases.Document.MAUI.ViewModels
         public ICommand ManualCropCommand { get; set; }
         public ICommand DetectBlurCommand { get; set; }
 
-        public SinglePagePreviewViewModel(IScannedPageService scannedPage, IFileFormatService fileFormatService)
+        public SinglePagePreviewViewModel(IScannedPageService scannedPage)
         {
             _scannedPage = scannedPage;
-            _fileFormatService = fileFormatService;
 
             FilterCommand = new Command(Filter);
             ExportCommand = new Command(Export);
@@ -101,39 +96,9 @@ namespace UseCases.Document.MAUI.ViewModels
             if (saveFormat == null)
                 return;
 
-            try
-            {
-                Uri exportedFileUri = null;
+            var exportedFileUri = await UseCaseCreator.GenerateUseCaseByFileFormat(saveFormat.Value).GenerateFilesForDocument(new[] { _scannedPage });
 
-                switch (saveFormat)
-                {
-                    case Models.SaveFormatOption.JPG:
-                    case Models.SaveFormatOption.PNG:
-
-                        if (_scannedPage.Document is FileImageSource fileImageSource)
-                        {
-                            exportedFileUri = await _fileFormatService.ConvertFromFileImageSourceAsync(saveFormat.Value, fileImageSource);
-                        }
-                        break;
-                    case Models.SaveFormatOption.PDF:
-                        exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreatePdfAsync(
-                           new[] { _scannedPage.Document },
-                           PDFPageSize.FixedA4);
-
-                        break;
-                    case Models.SaveFormatOption.TIFF:
-                        exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.WriteTiffAsync(
-                            new[] { _scannedPage.Document },
-                            new TiffOptions { OneBitEncoded = true, Dpi = 300, Compression = TiffCompressionOptions.CompressionCcittT6 });
-                        break;
-                }
-
-                await ActionHelpers.ShareFile(exportedFileUri?.LocalPath);
-            }
-            catch(Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
+            await ActionHelpers.ShareFile(exportedFileUri?.LocalPath);
         }
 
     }

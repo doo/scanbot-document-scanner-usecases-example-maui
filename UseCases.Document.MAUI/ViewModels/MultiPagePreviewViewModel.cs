@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using DocumentSDK.MAUI.Constants;
-using DocumentSDK.MAUI.Models;
 using DocumentSDK.MAUI.Services;
+using UseCases.Document.MAUI.UseCases;
 using UseCases.Document.MAUI.Utils;
 
 namespace UseCases.Document.MAUI.ViewModels
@@ -83,28 +81,9 @@ namespace UseCases.Document.MAUI.ViewModels
                 return;
             }
 
-            var documentSources = _scannedPages
-                .Where(p => p.Document != null)
-                .Select(p => p.Document)
-                .ToList();
+            var exportedFileUri = await UseCaseCreator.GenerateUseCaseByFileFormat(saveFormat.Value).GenerateFilesForDocument(_scannedPages);
 
-            if (saveFormat == Models.SaveFormatOption.PDF)
-            {
-                var exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreatePdfAsync(
-                    documentSources,
-                    PDFPageSize.FixedA4);
-
-                await ActionHelpers.ShareFile(exportedFileUri.AbsolutePath);
-            }
-            else if (saveFormat == Models.SaveFormatOption.TIFF)
-            {
-                var exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.WriteTiffAsync(
-                    documentSources,
-                    new TiffOptions { OneBitEncoded = true, Dpi = 300, Compression = TiffCompressionOptions.CompressionCcittT6 }
-                );
-
-                await ActionHelpers.ShareFile(exportedFileUri.AbsolutePath);
-            }
+            await ActionHelpers.ShareFile(exportedFileUri?.LocalPath);
         }
     }
 }
