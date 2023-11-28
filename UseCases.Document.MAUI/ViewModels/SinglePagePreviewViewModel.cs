@@ -96,7 +96,7 @@ namespace UseCases.Document.MAUI.ViewModels
             if (saveFormat == null)
                 return;
 
-            var exportedFileUri = await UseCaseCreator.GenerateUseCaseByFileFormat(saveFormat.Value).GenerateFilesForDocument(new[] { _scannedPage });
+            var exportedFileUri = await FileGeneratorFactory.GenerateUseCaseByFileFormat(saveFormat.Value).GenerateFilesForDocument(new[] { _scannedPage });
 
             await ActionHelpers.ShareFile(exportedFileUri?.LocalPath);
         }

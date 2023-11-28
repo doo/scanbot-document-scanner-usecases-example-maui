@@ -1,11 +1,10 @@
-using System;
 using DocumentSDK.MAUI.Constants;
 using DocumentSDK.MAUI.Models;
 using DocumentSDK.MAUI.Services;
 
 namespace UseCases.Document.MAUI.UseCases
 {
-    public class GenerateTifforSharingUseCase : GenerateFilesForSharingUseCase
+    public class TiffFileGenerator : FileGenerator
     {
         public override async Task<Uri> GenerateFilesForDocument(IEnumerable<IScannedPageService> scannedPages)
         {

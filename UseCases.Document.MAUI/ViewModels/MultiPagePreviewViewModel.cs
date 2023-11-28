@@ -81,7 +81,7 @@ namespace UseCases.Document.MAUI.ViewModels
                 return;
             }
 
-            var exportedFileUri = await UseCaseCreator.GenerateUseCaseByFileFormat(saveFormat.Value).GenerateFilesForDocument(_scannedPages);
+            var exportedFileUri = await FileGeneratorFactory.GenerateUseCaseByFileFormat(saveFormat.Value).GenerateFilesForDocument(_scannedPages);
 
             await ActionHelpers.ShareFile(exportedFileUri?.LocalPath);
         }

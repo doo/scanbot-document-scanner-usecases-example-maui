@@ -4,12 +4,12 @@ using UseCases.Document.MAUI.Services;
 
 namespace UseCases.Document.MAUI.UseCases
 {
-    public class GenerateImageForSharingUseCase : GenerateFilesForSharingUseCase
+    public class ImageFileGenerator : FileGenerator
     {
         private readonly IFileFormatService _fileFormatService;
         private readonly SaveFormatOption _saveFormat;
 
-        public GenerateImageForSharingUseCase(SaveFormatOption saveFormat)
+        public ImageFileGenerator(SaveFormatOption saveFormat)
         {
             _fileFormatService = new NativeFileFormatService();
             _saveFormat = saveFormat;

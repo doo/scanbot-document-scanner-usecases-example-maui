@@ -1,10 +1,9 @@
-using System;
 using DocumentSDK.MAUI.Constants;
 using DocumentSDK.MAUI.Services;
 
 namespace UseCases.Document.MAUI.UseCases
 {
-    public class GeneratePdfForSharingUseCase : GenerateFilesForSharingUseCase
+    public class PdfFileGenerator : FileGenerator
     {
         public override async Task<Uri> GenerateFilesForDocument(IEnumerable<IScannedPageService> scannedPages)
         {

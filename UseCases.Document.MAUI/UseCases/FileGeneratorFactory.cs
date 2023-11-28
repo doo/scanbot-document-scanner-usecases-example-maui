@@ -1,19 +1,18 @@
-
 namespace UseCases.Document.MAUI.UseCases
 {
-    public static class UseCaseCreator
+    public static class FileGeneratorFactory
     {
-        public static GenerateFilesForSharingUseCase GenerateUseCaseByFileFormat(Models.SaveFormatOption saveFormatOption)
+        public static FileGenerator GenerateUseCaseByFileFormat(Models.SaveFormatOption saveFormatOption)
         {
             switch (saveFormatOption)
             {
                 case Models.SaveFormatOption.JPG:
                 case Models.SaveFormatOption.PNG:
-                    return new GenerateImageForSharingUseCase(saveFormatOption);
+                    return new ImageFileGenerator(saveFormatOption);
                 case Models.SaveFormatOption.PDF:
-                    return new GeneratePdfForSharingUseCase();
+                    return new PdfFileGenerator();
                 case Models.SaveFormatOption.TIFF:
-                    return new GenerateTifforSharingUseCase();
+                    return new TiffFileGenerator();
                 default:
                     return null;
             }
