@@ -2240,7 +2240,7 @@ Version 1.1.0
    limitations under the License.
 
 
-Open Source libraries used in ScanbotSDK for iOS version 2.3.0:
+Open Source libraries used in Scanbot SDK for iOS version 2.3.0:
 
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
