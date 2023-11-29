@@ -2,6 +2,7 @@
 using DocumentSDK.MAUI;
 using DocumentSDK.MAUI.Models;
 using UseCases.Document.MAUI.Models;
+using UseCases.Document.MAUI.Utils;
 
 namespace UseCases.Document.MAUI.Pages;
 
@@ -98,9 +99,19 @@ public partial class HomePage : BasePage
 
         var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
 
-        if (result?.Status == OperationResult.Ok)
+        if (result?.Status != OperationResult.Ok)
+        {
+            return;
+        }
+
+
+        if (result.Pages.Count() > 1)
         {
             await WaitThenNavigate(new MultiplePagesPreview(result.Pages));
+        }
+        else
+        {
+            await WaitThenNavigate(new SinglePagePreview(result.Pages.First()));
         }
     }
 
@@ -132,6 +143,8 @@ public partial class HomePage : BasePage
 
         if (scannedPage != null)
         {
+            await scannedPage.DetectDocumentAsync();
+
             await WaitThenNavigate(new SinglePagePreview(scannedPage));
         }
     }
@@ -140,11 +153,8 @@ public partial class HomePage : BasePage
     {
         if (e?.CurrentSelection.FirstOrDefault() is UseCaseOption service && service.NavigationAction != null)
         {
-            if (!DocumentSDK.MAUI.ScanbotSDK.SDKService.IsLicenseValid)
-            {
-                await DisplayAlert("Oops!", "License expired or invalid", "Dismiss");
+            if (!await ActionHelpers.IsLicenseValid())
                 return;
-            }
 
             await service.NavigationAction();
         }

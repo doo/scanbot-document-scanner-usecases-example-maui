@@ -1,9 +1,9 @@
-﻿using System.Windows.Input;
+﻿using System.Diagnostics;
+using System.Windows.Input;
 using BarcodeSDK.MAUI.Constants;
 using DocumentSDK.MAUI;
-using DocumentSDK.MAUI.Constants;
-using DocumentSDK.MAUI.Models;
 using DocumentSDK.MAUI.Services;
+using UseCases.Document.MAUI.UseCases;
 using UseCases.Document.MAUI.Utils;
 
 namespace UseCases.Document.MAUI.ViewModels
@@ -48,6 +48,9 @@ namespace UseCases.Document.MAUI.ViewModels
 
         private async void Filter()
         {
+            if (!await ActionHelpers.IsLicenseValid())
+                return;
+
             var filterOption = await ActionHelpers.ChooseDocumentFilterOption();
 
             if (filterOption == null)
@@ -61,6 +64,9 @@ namespace UseCases.Document.MAUI.ViewModels
 
         private async void ManualCrop()
         {
+            if (!await ActionHelpers.IsLicenseValid())
+                return;
+
             var config = new CroppingScreenConfiguration();
             var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchCroppingScreenAsync(_scannedPage, config);
 
@@ -72,6 +78,9 @@ namespace UseCases.Document.MAUI.ViewModels
 
         private async void DetectBlur()
         {
+            if (!await ActionHelpers.IsLicenseValid())
+                return;
+
             var blur = await DocumentSDK.MAUI.ScanbotSDK.SDKService.EstimateBlurriness(await _scannedPage.DecryptedDocument());
 
             await App.Current.MainPage.DisplayAlert("Detect Blur", $"Estimated blurriness for detected document: {blur}", "Dismiss");
@@ -79,30 +88,18 @@ namespace UseCases.Document.MAUI.ViewModels
 
         private async void Export()
         {
+            if (!await ActionHelpers.IsLicenseValid())
+                return;
+
             var saveFormat = await ActionHelpers.ChooseDocumentSaveFormatOption();
 
             if (saveFormat == null)
                 return;
 
-            if (saveFormat == Models.SaveFormatOption.PDF)
-            {
-                var exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreatePdfAsync(
-                    new[] { _scannedPage.Document },
-                    PDFPageSize.FixedA4);
+            var exportedFileUri = await FileGeneratorFactory.GenerateUseCaseByFileFormat(saveFormat.Value).GenerateFilesForDocument(new[] { _scannedPage });
 
-                await ActionHelpers.ShareFile(exportedFileUri.AbsolutePath);
-            }
-            else if (saveFormat == Models.SaveFormatOption.TIFF)
-            {
-                var exportedFileUri = await DocumentSDK.MAUI.ScanbotSDK.SDKService.WriteTiffAsync(
-                    new[] { _scannedPage.Document },
-                    new TiffOptions { OneBitEncoded = true, Dpi = 300, Compression = TiffCompressionOptions.CompressionCcittT6 }
-                );
-
-                await ActionHelpers.ShareFile(exportedFileUri.AbsolutePath);
-            }
+            await ActionHelpers.ShareFile(exportedFileUri?.LocalPath);
         }
 
     }
 }
-

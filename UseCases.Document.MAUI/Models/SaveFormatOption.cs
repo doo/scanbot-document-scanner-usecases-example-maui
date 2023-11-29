@@ -3,7 +3,9 @@
 	public enum SaveFormatOption
 	{
 		PDF,
-		TIFF
+		TIFF,
+		JPG,
+		PNG,
 	}
 }
 

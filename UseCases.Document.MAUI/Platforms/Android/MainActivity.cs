@@ -1,8 +1,6 @@
-﻿using Android;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using AndroidX.Core.App;
 using DocumentSDK.MAUI.Droid.Services;
 
 namespace UseCases.Document.MAUI;
@@ -16,12 +14,6 @@ public class MainActivity : MauiAppCompatActivity
 
         DependencyManager.RegisterActivity(this);
         DependencyManager.RegisterClasses();
-
-        ActivityCompat.RequestPermissions(this, new string[] {
-                Manifest.Permission.Camera,
-                Manifest.Permission.ReadExternalStorage,
-                Manifest.Permission.WriteExternalStorage
-        }, 0);
     }
 }
 

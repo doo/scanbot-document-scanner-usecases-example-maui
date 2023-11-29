@@ -34,11 +34,22 @@ namespace UseCases.Document.MAUI.Utils
 
         public static async Task ShareFile(string filePath)
         {
-            await Share.Default.RequestAsync(new ShareFileRequest
+            await Share.RequestAsync(new ShareFileRequest
             {
                 Title = "Share file",
-                File = new ShareFile(filePath)
+                File = new ShareFile(filePath),
             });
+        }
+
+        public static async Task<bool> IsLicenseValid()
+        {
+            if (!DocumentSDK.MAUI.ScanbotSDK.SDKService.IsLicenseValid)
+            {
+                await App.Current.MainPage.DisplayAlert("Oops!", "License expired or invalid", "Dismiss");
+                return false;
+            }
+
+            return true;
         }
     }
 }
