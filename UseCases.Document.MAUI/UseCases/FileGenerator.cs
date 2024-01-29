@@ -8,20 +8,9 @@ namespace UseCases.Document.MAUI.UseCases
 
         protected IEnumerable<FileImageSource> ExtractImageSourcesFromScannedPages(IEnumerable<IScannedPage> scannedPages)
         {
-            var list = new List<FileImageSource>();
-            list.AddRange(scannedPages
+            return scannedPages
                 .Where(p => p.Document != null)
-                .Select(p => p.Document.ToFileImageSource()));
-            return list;
-        }
-    }
-
-    public static class ImageExtension
-    {
-        public static FileImageSource ToFileImageSource(this ImageSource source)
-        {
-            var fileImageSource = source as FileImageSource;
-            return fileImageSource;
+                .Select(p => p.Document as FileImageSource);
         }
     }
 }
