@@ -1,4 +1,4 @@
-﻿using DocumentSDK.MAUI.Constants;
+﻿using ScanbotSDK.MAUI.Constants;
 using UseCases.Document.MAUI.Models;
 
 namespace UseCases.Document.MAUI.Utils
@@ -43,7 +43,7 @@ namespace UseCases.Document.MAUI.Utils
 
         public static async Task<bool> IsLicenseValid()
         {
-            if (!DocumentSDK.MAUI.ScanbotSDK.SDKService.IsLicenseValid)
+            if (!ScanbotSDK.MAUI.ScanbotSDK.SDKService.IsLicenseValid)
             {
                 await App.Current.MainPage.DisplayAlert("Oops!", "License expired or invalid", "Dismiss");
                 return false;

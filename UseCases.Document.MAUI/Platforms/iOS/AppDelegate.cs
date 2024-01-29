@@ -1,6 +1,6 @@
-﻿using DocumentSDK.MAUI;
-using DocumentSDK.MAUI.Constants;
-using DocumentSDK.MAUI.iOS;
+﻿using ScanbotSDK.MAUI;
+using ScanbotSDK.MAUI.Constants;
+using ScanbotSDK.MAUI.iOS;
 using Foundation;
 
 namespace UseCases.Document.MAUI;

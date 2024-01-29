@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
-using DocumentSDK.MAUI;
-using DocumentSDK.MAUI.Droid;
+using ScanbotSDK.MAUI;
+using ScanbotSDK.MAUI.Droid;
 
 namespace UseCases.Document.MAUI;
 
@@ -23,7 +23,7 @@ public class MainApplication : MauiApplication
             AllowGpuAcceleration = false,
             AllowXnnpackAcceleration = false,
             EnableNativeLogging = true,
-            StorageImageFormat = DocumentSDK.MAUI.Constants.CameraImageFormat.Jpg,
+            StorageImageFormat = ScanbotSDK.MAUI.Constants.CameraImageFormat.Jpg,
 
             // You can enable encryption by uncommenting the following lines:
             // Note: all the images and files exported through the SDK will

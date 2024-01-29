@@ -1,15 +1,14 @@
-using DocumentSDK.MAUI.Constants;
-using DocumentSDK.MAUI.Services;
+using ScanbotSDK.MAUI.Constants;
+using ScanbotSDK.MAUI.Services;
 
 namespace UseCases.Document.MAUI.UseCases
 {
     public class PdfFileGenerator : FileGenerator
     {
-        public override async Task<Uri> GenerateFilesForDocument(IEnumerable<IScannedPageService> scannedPages)
+        public override async Task<Uri> GenerateFilesForDocument(IEnumerable<IScannedPage> scannedPages)
         {
-            return await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreatePdfAsync(
-                           ExtractImageSourcesFromScannedPages(scannedPages),
-                           PDFPageSize.FixedA4);
+            var fileImageSources = ExtractImageSourcesFromScannedPages(scannedPages);
+            return await ScanbotSDK.MAUI.ScanbotSDK.SDKService?.CreatePdfAsync(fileImageSources, PDFPageSize.A4, PDFPageOrientation.Portrait, ScanbotSDK.MAUI.ScanbotSDK.SDKService.DefaultOcrConfig);
         }
     }
 }
