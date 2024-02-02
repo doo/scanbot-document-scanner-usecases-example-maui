@@ -69,7 +69,7 @@
     
     <!-- ===================== Common Project References =====================  -->
     <ItemGroup>
-        <PackageReference Include="ScanbotSDK.MAUI" Version="4.2.0-alpha.2" />
+        <PackageReference Include="ScanbotSDK.MAUI" Version="4.2.0-alpha.4" />
     </ItemGroup>
     
     <!-- ===================== IOS OCR Data Files =====================  -->
