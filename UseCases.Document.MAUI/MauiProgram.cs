@@ -42,7 +42,7 @@ public static class MauiProgram
             //    Mode = EncryptionMode.AES256
             //}
             // Note: all the images and files exported through the SDK will
-            // not be openable from external application, since they will be
+            // not be openable from external applications, since they will be
             // encrypted.
         });
 
