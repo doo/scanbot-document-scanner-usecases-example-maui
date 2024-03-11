@@ -1,4 +1,4 @@
-using DocumentSDK.MAUI.Services;
+using ScanbotSDK.MAUI.Services;
 using UseCases.Document.MAUI.Models;
 using UseCases.Document.MAUI.Services;
 
@@ -15,7 +15,7 @@ namespace UseCases.Document.MAUI.UseCases
             _saveFormat = saveFormat;
         }
 
-        public override async Task<Uri> GenerateFilesForDocument(IEnumerable<IScannedPageService> scannedPages)
+        public override async Task<Uri> GenerateFilesForDocument(IEnumerable<IScannedPage> scannedPages)
         {
             foreach (var page in scannedPages)
             {

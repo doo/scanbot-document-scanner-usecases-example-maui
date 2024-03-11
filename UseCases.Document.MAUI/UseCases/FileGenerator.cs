@@ -1,18 +1,16 @@
-using DocumentSDK.MAUI.Services;
+using ScanbotSDK.MAUI.Services;
 
 namespace UseCases.Document.MAUI.UseCases
 {
     public abstract class FileGenerator
     {
-        public abstract Task<Uri> GenerateFilesForDocument(IEnumerable<IScannedPageService> scannedPages);
+        public abstract Task<Uri> GenerateFilesForDocument(IEnumerable<IScannedPage> scannedPages);
 
-        protected List<ImageSource> ExtractImageSourcesFromScannedPages(IEnumerable<IScannedPageService> scannedPages)
+        protected IEnumerable<FileImageSource> ExtractImageSourcesFromScannedPages(IEnumerable<IScannedPage> scannedPages)
         {
             return scannedPages
                 .Where(p => p.Document != null)
-                .Select(p => p.Document)
-                .ToList();
-
+                .Select(p => p.Document as FileImageSource);
         }
     }
 }

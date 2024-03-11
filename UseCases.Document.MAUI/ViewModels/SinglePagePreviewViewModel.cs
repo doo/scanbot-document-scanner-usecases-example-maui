@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
-using System.Windows.Input;
-using BarcodeSDK.MAUI.Constants;
-using DocumentSDK.MAUI;
-using DocumentSDK.MAUI.Services;
+﻿using System.Windows.Input;
+using ScanbotSDK.MAUI.Constants;
+using ScanbotSDK.MAUI;
+using ScanbotSDK.MAUI.Services;
 using UseCases.Document.MAUI.UseCases;
 using UseCases.Document.MAUI.Utils;
 
@@ -10,7 +9,7 @@ namespace UseCases.Document.MAUI.ViewModels
 {
     public class SinglePagePreviewViewModel : BasePagePreviewViewModel
     {
-        private IScannedPageService _scannedPage;
+        private IScannedPage _scannedPage;
 
         private ImageSource _scannedImageSource;
         public ImageSource ScannedImageSource
@@ -29,7 +28,7 @@ namespace UseCases.Document.MAUI.ViewModels
         public ICommand ManualCropCommand { get; set; }
         public ICommand DetectBlurCommand { get; set; }
 
-        public SinglePagePreviewViewModel(IScannedPageService scannedPage)
+        public SinglePagePreviewViewModel(IScannedPage scannedPage)
         {
             _scannedPage = scannedPage;
 
@@ -68,7 +67,7 @@ namespace UseCases.Document.MAUI.ViewModels
                 return;
 
             var config = new CroppingScreenConfiguration();
-            var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchCroppingScreenAsync(_scannedPage, config);
+            var result = await ScanbotSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchCroppingScreenAsync(_scannedPage, config);
 
             if (result.Status == OperationResult.Ok)
             {
@@ -81,7 +80,7 @@ namespace UseCases.Document.MAUI.ViewModels
             if (!await ActionHelpers.IsLicenseValid())
                 return;
 
-            var blur = await DocumentSDK.MAUI.ScanbotSDK.SDKService.EstimateBlurriness(await _scannedPage.DecryptedDocument());
+            var blur = await ScanbotSDK.MAUI.ScanbotSDK.SDKService.DetectDocumentQualityAsync(await _scannedPage.DecryptedDocument());
 
             await App.Current.MainPage.DisplayAlert("Detect Blur", $"Estimated blurriness for detected document: {blur}", "Dismiss");
         }

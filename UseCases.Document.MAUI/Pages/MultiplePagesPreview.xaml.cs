@@ -1,11 +1,11 @@
-﻿using DocumentSDK.MAUI.Services;
+﻿using ScanbotSDK.MAUI.Services;
 using UseCases.Document.MAUI.ViewModels;
 
 namespace UseCases.Document.MAUI.Pages;
 
 public partial class MultiplePagesPreview : BasePage
 {
-    public MultiplePagesPreview(IScannedPageService[] scannedPages)
+    public MultiplePagesPreview(IScannedPage[] scannedPages)
     {
         InitializeComponent();
 

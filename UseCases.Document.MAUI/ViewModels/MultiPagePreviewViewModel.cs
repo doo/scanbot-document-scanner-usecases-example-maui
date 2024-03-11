@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using DocumentSDK.MAUI.Services;
+using ScanbotSDK.MAUI.Services;
 using UseCases.Document.MAUI.UseCases;
 using UseCases.Document.MAUI.Utils;
 
@@ -7,7 +7,7 @@ namespace UseCases.Document.MAUI.ViewModels
 {
     public class MultiPagePreviewViewModel : BasePagePreviewViewModel
     {
-        private IEnumerable<IScannedPageService> _scannedPages;
+        private IEnumerable<IScannedPage> _scannedPages;
 
         private ObservableCollection<ImageSource> _scannedImageSources;
         public ObservableCollection<ImageSource> ScannedImageSources
@@ -23,7 +23,7 @@ namespace UseCases.Document.MAUI.ViewModels
             }
         }
 
-        public MultiPagePreviewViewModel(IEnumerable<IScannedPageService> scannedPages)
+        public MultiPagePreviewViewModel(IEnumerable<IScannedPage> scannedPages)
         {
             _scannedPages = scannedPages;
 
@@ -75,7 +75,6 @@ namespace UseCases.Document.MAUI.ViewModels
                 return;
 
             var saveFormat = await ActionHelpers.ChooseDocumentSaveFormatOption();
-
             if (saveFormat == null) 
             {
                 return;

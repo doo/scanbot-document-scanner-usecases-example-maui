@@ -1,6 +1,6 @@
-﻿using BarcodeSDK.MAUI.Constants;
-using DocumentSDK.MAUI;
-using DocumentSDK.MAUI.Models;
+﻿using ScanbotSDK.MAUI;
+using ScanbotSDK.MAUI.Constants;
+using ScanbotSDK.MAUI.Models;
 using UseCases.Document.MAUI.Models;
 using UseCases.Document.MAUI.Utils;
 
@@ -39,7 +39,7 @@ public partial class HomePage : BasePage
             IgnoreBadAspectRatio = true,
         };
 
-        var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
+        var result = await ScanbotSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
 
         if (result?.Status == OperationResult.Ok)
         {
@@ -56,7 +56,7 @@ public partial class HomePage : BasePage
             AutoSnappingButtonTitle = "Auto-Snap"
         };
 
-        var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
+        var result = await ScanbotSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
 
         if (result?.Status == OperationResult.Ok)
         {
@@ -79,7 +79,7 @@ public partial class HomePage : BasePage
            TextHintNothingDetected = "No document detected, please try again",
         };
 
-        var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
+        var result = await ScanbotSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
 
         if (result?.Status == OperationResult.Ok)
         {
@@ -97,7 +97,7 @@ public partial class HomePage : BasePage
             ShutterButtonManualInnerColor = SBColors.ScanbotRed,
         };
 
-        var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
+        var result = await ScanbotSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchDocumentScannerAsync(config);
 
         if (result?.Status != OperationResult.Ok)
         {
@@ -124,7 +124,7 @@ public partial class HomePage : BasePage
             AcceptedSizeScore = 0.75,
         };
 
-        var result = await DocumentSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchFinderDocumentScannerAsync(config);
+        var result = await ScanbotSDK.MAUI.ScanbotSDK.ReadyToUseUIService.LaunchFinderDocumentScannerAsync(config);
 
         if (result?.Status == OperationResult.Ok)
         {
@@ -134,12 +134,12 @@ public partial class HomePage : BasePage
 
     private async Task ImportImagesFromLibrary()
     {
-        ImageSource pickedImageSource = await DocumentSDK.MAUI.ScanbotSDK.PickerService.PickImageAsync();
+        ImageSource pickedImageSource = await ScanbotSDK.MAUI.ScanbotSDK.PickerService.PickImageAsync();
 
         if (pickedImageSource == null)
             return;
 
-        var scannedPage = await DocumentSDK.MAUI.ScanbotSDK.SDKService.CreateScannedPageAsync(pickedImageSource);
+        var scannedPage = await ScanbotSDK.MAUI.ScanbotSDK.SDKService.CreateScannedPageAsync(pickedImageSource);
 
         if (scannedPage != null)
         {
